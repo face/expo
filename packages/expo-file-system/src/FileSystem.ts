@@ -423,6 +423,8 @@ export class UploadTask extends FileSystemCancellableNetworkTask<UploadProgressD
       ...options,
       httpMethod,
     };
+
+    this.uploadAsync = this.uploadAsync.bind(this);
   }
 
   protected getEventName(): string {
