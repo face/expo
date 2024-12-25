@@ -129,6 +129,20 @@ function openFileBrowserAsync({
 
 function readFile(targetFile: File, options: { base64: boolean }): Promise<ImagePickerAsset> {
   return new Promise((resolve, reject) => {
+
+    if (!options.base64) {
+      return resolve({
+        uri: targetFile.name,
+        file: targetFile,
+        width: 0,
+        height: 0,
+        type: 'image',
+        mimeType: targetFile.type,
+        fileName: targetFile.name,
+        fileSize: targetFile.size,
+      });
+    }
+
     const reader = new FileReader();
     reader.onerror = () => {
       reject(new Error(`Failed to read the selected media because the operation failed.`));
